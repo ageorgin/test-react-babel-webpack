@@ -10,7 +10,8 @@ class LoginForm extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     };
   }
 
@@ -26,6 +27,8 @@ class LoginForm extends React.Component {
     console.log('login: ' + this.state.email + ' - password: ' + this.state.password);
     if (this.state.email == 'arnaud.georgin@gmail.com' && this.state.password == 'mdp') {
       this.props.loginSuccess();
+    } else {
+      this.setState({error: "Error lors de l'authentification"});
     }
     event.preventDefault();
   }
@@ -42,13 +45,25 @@ class LoginForm extends React.Component {
       },
       button: {
         marginTop: '15px'
+      },
+      error: {
+        color: '#D8000C',
+        backgroundColor: '#FFBABA',
+        padding: '12px',
+        marginBottom: '10px'
       }
     };
+
+    let errorDiv = null;
+    if (this.state.error.length > 0) {
+        errorDiv = <div style={styles.error}>{this.state.error}</div>;
+    }
 
     return (
       <div className="container">
         <form className="form-signin" style={styles.form} onSubmit={this.login}>
           <h2 className="form-signin-heading" style={styles.h2}>Please sign in</h2>
+          {errorDiv}
           <label htmlFor="inputEmail" className="sr-only">Email address</label>
           <input type="email" id="inputEmail" className="form-control" placeholder="Email address"  required autoFocus value={this.state.email} onChange={this.handleEmailChange}/>
           <label htmlFor="inputPassword" className="sr-only">Password</label>

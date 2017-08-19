@@ -7,13 +7,17 @@ class Application extends React.Component {
   constructor(props) {
       super(props)
       this.handleUserLoginSuccess = this.handleUserLoginSuccess.bind(this);
+
+      console.log(sessionStorage.getItem('userIsLogged'));
+
       this.state = {
-        userIsLogged: false
+        userIsLogged: (sessionStorage.getItem('userIsLogged') == null ? false : sessionStorage.getItem('userIsLogged'))
       };
   }
 
   handleUserLoginSuccess() {
     console.log('user login with success');
+    sessionStorage.setItem('userIsLogged', true);
     this.setState({userIsLogged: true});
   }
 

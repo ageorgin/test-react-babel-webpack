@@ -1,12 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginForm from './LoginForm.js';
-import MyComponent from './MyComponent.js';
+import Application from './Application.js';
 
 ReactDOM.render(
-  <div>
-    <LoginForm />
-    <MyComponent />
-  </div>,
+  <Application />,
   document.getElementById('app')
 );

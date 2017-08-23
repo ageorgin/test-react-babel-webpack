@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
-  Redirect
+  Switch
 } from 'react-router-dom';
 import LoginForm from './LoginForm.js';
 import MyComponent from './MyComponent.js';
+import ProductDetail from './ProductDetail.js';
 
 class Application extends React.Component {
   constructor(props) {
       super(props)
       this.handleUserLoginSuccess = this.handleUserLoginSuccess.bind(this);
+      this.handleUserLogout = this.handleUserLogout.bind(this);
 
       console.log(sessionStorage.getItem('userIsLogged'));
 
@@ -26,6 +28,13 @@ class Application extends React.Component {
     this.setState({userIsLogged: true});
   }
 
+  handleUserLogout(event) {
+    console.log('user logout');
+    sessionStorage.removeItem('userIsLogged');
+    this.setState({userIsLogged: false});
+    event.preventDefault();
+  }
+
   render() {
     let renderComponent = null;
     if (!this.state.userIsLogged) {
@@ -37,7 +46,20 @@ class Application extends React.Component {
     return(
       <Router>
         <div>
-          <Route path="/" component={MyComponent}/>
+          <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+            <ul className="mr-auto">
+              <li><img src="https://www.lespepitesdeberiz.fr/bundles/berizfront/images/logo.png"/></li>
+            </ul>
+            <form className="form-inline my-2 my-lg-0" onSubmit={this.handleUserLogout}>
+              <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnexion</button>
+            </form>
+          </nav>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={MyComponent}/>
+              <Route path="/create" component={ProductDetail}/>
+            </Switch>
+          </div>
         </div>
       </Router>
     );

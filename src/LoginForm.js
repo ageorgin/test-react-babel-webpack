@@ -62,13 +62,13 @@ class LoginForm extends React.Component {
     return (
       <div className="container">
         <form className="form-signin" style={styles.form} onSubmit={this.login}>
-          <h2 className="form-signin-heading" style={styles.h2}>Please sign in</h2>
+          <h2 className="form-signin-heading" style={styles.h2}>Connexion</h2>
           {errorDiv}
-          <label htmlFor="inputEmail" className="sr-only">Email address</label>
+          <label htmlFor="inputEmail" className="sr-only">adresse e-mail</label>
           <input type="email" id="inputEmail" className="form-control" placeholder="Email address"  required autoFocus value={this.state.email} onChange={this.handleEmailChange}/>
-          <label htmlFor="inputPassword" className="sr-only">Password</label>
+          <label htmlFor="inputPassword" className="sr-only">mot de passe</label>
           <input type="password" id="inputPassword" className="form-control" placeholder="Password" required value={this.state.password} onChange={this.handlePasswordChange}/>
-          <button className="btn btn-lg btn-primary btn-block" type="submit" style={styles.button}>Sign in</button>
+          <button className="btn btn-lg btn-primary btn-block" type="submit" style={styles.button}>Envoyer</button>
         </form>
       </div>
     );

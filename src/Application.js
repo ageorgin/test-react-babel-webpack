@@ -6,8 +6,8 @@ import {
   Switch
 } from 'react-router-dom';
 import LoginForm from './LoginForm.js';
-import MyComponent from './MyComponent.js';
-import ProductDetail from './ProductDetail.js';
+import ProductList from './ProductList.js';
+import ProductEdit from './ProductEdit.js';
 
 class Application extends React.Component {
   constructor(props) {
@@ -56,8 +56,8 @@ class Application extends React.Component {
           </nav>
           <div className="container">
             <Switch>
-              <Route exact path="/" component={MyComponent}/>
-              <Route path="/create" component={ProductDetail}/>
+              <Route exact path="/" component={ProductList}/>
+              <Route path="/create" component={ProductEdit}/>
             </Switch>
           </div>
         </div>

@@ -1,15 +1,15 @@
 import React from 'react';
 
-class ProductDetail extends React.Component {
+class ProductEdit extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return(
-      <div>TODO ProductDetail</div>
+      <div>TODO ProductEdit</div>
     );
   }
 }
 
-export default ProductDetail;
+export default ProductEdit;

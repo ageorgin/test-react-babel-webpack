@@ -56,8 +56,12 @@ class Application extends React.Component {
           </nav>
           <div className="container">
             <Switch>
-              <Route exact path="/" component={ProductList}/>
-              <Route path="/create" component={ProductEdit}/>
+              <Route exact path="/" render={(props) => (
+                <ProductList {...props} apiClient={this.props.apiClient}/>
+              )}/>
+              <Route path="/create" render={(props) => (
+                <ProductEdit {...props}/>
+              )}/>
             </Switch>
           </div>
         </div>

@@ -11,5 +11,14 @@ module.exports = {
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
     ]
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://www.lespepitesdeberiz.fr',
+        secure: false,
+        changeOrigin: true
+      }
+    }
   }
 };

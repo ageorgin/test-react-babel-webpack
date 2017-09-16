@@ -7,13 +7,44 @@ class ProductEdit extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.state = {
+      id: -1,
       category: '',
       name: '',
-      weight: '',
-      price: '',
+      weight: 0,
+      price: 0.0,
       description: '',
-      isModified: false
+      isModified: false,
+      categories: [],
+      isLoading: true
     }
+
+    console.log(this.props.mode);
+  }
+
+  componentDidMount(){
+    // loading categories & product if required from API
+    this.props.apiClient.loadCategories().then((allCategories) => {
+      if(this.props.mode == 'edit') {
+        const productId = this.props.match.params.id;
+        const querystring = new URLSearchParams(this.props.location.search);
+        const categoryId = querystring.get('category');
+
+        this.props.apiClient.loadProduct(categoryId, productId).then((product) => {
+          this.setState({
+            isLoading: false,
+            category: product.category.id,
+            name: product.name,
+            id: product.id,
+            weight: product.weight,
+            price: product.price,
+            description: product.description,
+            categories: allCategories
+          });
+        });
+      } else {
+        this.setState({categories: allCategories, isLoading: false});
+      }
+    });
   }
 
   handleInputChange(event){
@@ -43,6 +74,11 @@ class ProductEdit extends React.Component {
 
   handleSave(event) {
     console.log('submit');
+    if(this.state.id == -1){  // mode create
+      console.log('post to create product');
+    } else {                  // mode update
+      console.log('put to update product');
+    }
     event.preventDefault();
   }
 
@@ -74,6 +110,14 @@ class ProductEdit extends React.Component {
         }
     };
 
+    if (this.state.isLoading) {
+        return(
+          <div className="progress">
+            <div className="indeterminate"></div>
+          </div>
+        );
+    }
+
     return(
       <div className="row">
         <form className="col s12" onSubmit={this.handleSave} onReset={this.handleReset}>
@@ -81,9 +125,9 @@ class ProductEdit extends React.Component {
             <div className="input-field col s12">
               <select style={styles.select} value={this.state.category} id="category" onChange={this.handleInputChange} required>
                 <option value="" disabled>Sélectionnez la catégorie du produit</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                {this.state.categories.map((cat, index) =>
+                  <option value={cat.id} key={cat.id}>{cat.code}</option>
+                )}
               </select>
               <label>Catégorie du produit :</label>
             </div>

@@ -15,7 +15,7 @@ class ApiClient {
           results is an array of arrays of objects.
           We need to flatten it into an array of objects.
           [].concat(...results) do the job.
-          see: http://lorenstewart.me/2016/11/21/flatten-a-multi-dimensional-array-using-es6/  
+          see: http://lorenstewart.me/2016/11/21/flatten-a-multi-dimensional-array-using-es6/
           */
           return [].concat(...results);
         });
@@ -37,6 +37,16 @@ class ApiClient {
       .then(function(response){
         return response.json().then(function (products){
           return products;
+        });
+      }));
+  }
+
+  loadProduct(categoryId, productId){
+    return(
+      fetch('/api/categories/' + categoryId + '/products/' + productId)
+      .then(function(response){
+        return response.json().then(function (product){
+          return product;
         });
       }));
   }

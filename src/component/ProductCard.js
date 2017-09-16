@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productImageUrl: this.buildProductImageUrl(props.product.id, props.product.category.code)
+      productImageUrl: this.buildProductImageUrl(props.product.id, props.product.category.code),
+      urlEdit: "/edit/" + props.product.id + "?category=" + props.product.category.id
     }
   }
 
@@ -29,7 +31,7 @@ class ProductCard extends React.Component {
           <p dangerouslySetInnerHTML={{__html: this.props.product.description.substr(0, 250) + "..."}}/>
         </div>
         <div className="card-action">
-          <a href="#">Modifier</a>
+          <Link to={this.state.urlEdit}>Modifier</Link>
           <a href="#">Supprimer</a>
         </div>
       </div>

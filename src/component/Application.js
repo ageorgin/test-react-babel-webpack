@@ -60,7 +60,10 @@ class Application extends React.Component {
                 <ProductList {...props} apiClient={this.props.apiClient}/>
               )}/>
               <Route path="/create" render={(props) => (
-                <ProductEdit {...props}/>
+                <ProductEdit {...props} apiClient={this.props.apiClient} mode="create"/>
+              )}/>
+              <Route path="/edit/:id" render={(props) => (
+                <ProductEdit {...props} apiClient={this.props.apiClient} mode="edit"/>
               )}/>
             </Switch>
           </div>
